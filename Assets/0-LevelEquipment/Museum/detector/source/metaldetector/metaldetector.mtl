@@ -1,0 +1,14 @@
+# Made in Blockbench 2.4.0
+newmtl 0
+map_Kd white_concrete.png
+newmtl 1
+map_Kd light_gray_concrete.png
+newmtl 2
+map_Kd black_concrete.png
+newmtl 3
+map_Kd lime_terracotta.png
+newmtl 4
+map_Kd red_concrete.png
+newmtl 5
+map_Kd lime_concrete.png
+newmtl none
