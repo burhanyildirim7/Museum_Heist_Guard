@@ -3160,7 +3160,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.05958511
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64953526771186756, guid: f52a5629a2062924bafe8d5ad7a3c5f5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f52a5629a2062924bafe8d5ad7a3c5f5, type: 3}
 --- !u!4 &284658397899284959 stripped
 Transform:
@@ -3268,7 +3269,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64517491807741728, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
 --- !u!4 &284658397902705870 stripped
 Transform:
@@ -4504,7 +4506,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64517491807741728, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
 --- !u!4 &284658397969158845 stripped
 Transform:
@@ -5804,7 +5807,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.18787277
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64837295394645822, guid: 6f80e919ce3f15944905cac373e3b447, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6f80e919ce3f15944905cac373e3b447, type: 3}
 --- !u!4 &284658398031686290 stripped
 Transform:
@@ -10464,7 +10468,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64163891976285358, guid: fe6f11fc019ec62418161c178bc03c9b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fe6f11fc019ec62418161c178bc03c9b, type: 3}
 --- !u!4 &284658398298215587 stripped
 Transform:
@@ -11648,7 +11653,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64940048512396896, guid: 6b111b417178e844b8625eaff49aa98d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b111b417178e844b8625eaff49aa98d, type: 3}
 --- !u!4 &284658398373114230 stripped
 Transform:
@@ -14722,7 +14728,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64663332765105448, guid: 99ec98a713e68684cbfb382167732238, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 99ec98a713e68684cbfb382167732238, type: 3}
 --- !u!4 &284658398547457527 stripped
 Transform:
@@ -19824,7 +19831,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64517491807741728, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
 --- !u!4 &284658398872087780 stripped
 Transform:
@@ -20044,7 +20052,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64663332765105448, guid: 99ec98a713e68684cbfb382167732238, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 99ec98a713e68684cbfb382167732238, type: 3}
 --- !u!4 &284658398880520075 stripped
 Transform:
@@ -34700,7 +34709,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64663332765105448, guid: 99ec98a713e68684cbfb382167732238, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 99ec98a713e68684cbfb382167732238, type: 3}
 --- !u!4 &284658399639768832 stripped
 Transform:
@@ -35020,7 +35030,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64517491807741728, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 008c6febfb8d88a4496fe51f2a2d409a, type: 3}
 --- !u!4 &284658399663596520 stripped
 Transform:
