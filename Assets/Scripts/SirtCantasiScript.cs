@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 
 public class SirtCantasiScript : MonoBehaviour
 {
@@ -12,236 +11,240 @@ public class SirtCantasiScript : MonoBehaviour
     public List<Transform> _yerlesmeNoktalari = new List<Transform>();
     [Header("Cantada Bulunan Objelerin Tamami")]
     public List<GameObject> _cantadakiObjeler = new List<GameObject>();
-    [Header("Cantada Bulunan Saman Objeleri")]
-    public List<GameObject> _cantadakiSamanObjeleri = new List<GameObject>();
-    public List<GameObject> _cantadakiAltinObjeleri = new List<GameObject>();
-    public List<GameObject> _cantadakiEtObjeleri = new List<GameObject>();
-    public List<GameObject> _cantadakiDemirObjeleri = new List<GameObject>();
-    [Header("Textler")]
-    [SerializeField] private Text _samanSayisiText;
-    [SerializeField] private Text _altinSayisiText;
-    [SerializeField] private Text _etSayisiText;
-    [SerializeField] private Text _demirSayisiText;
+    [Header("Cantada Bulunan Obje Cesitleri")]
+    public List<GameObject> _cantadakiStuffObjeleri = new List<GameObject>();
+    public List<GameObject> _cantadakiIceCreamObjeleri = new List<GameObject>();
+    public List<GameObject> _cantadakiDrinkObjeleri = new List<GameObject>();
+    [Header("PlayerController Scripti")]
+    [SerializeField] private PlayerController _playerController;
+    [Header("Ice Cream Yonetme Objeler")]
+    [SerializeField] private GameObject _iceCreamTepsi;
+    public List<GameObject> _tepsidekiIceCreams = new List<GameObject>();
+    [Header("Drink Yonetme Objeler")]
+    [SerializeField] private GameObject _drinkTepsi;
+    public List<GameObject> _tepsidekiDrinks = new List<GameObject>();
+    [Header("Can Simidi Yonetme Objeler")]
+    public GameObject _canSimidi;
 
+    [Header("Kontrol Amacli")]
+    public int _cantadakiObjeSayisi;
 
-    private int _cantadakiObjeSayisi;
+    public int _cantadakiStuffSayisi;
 
-    public static bool _kasapVar;
-    public static bool _kilicVar;
-    public static bool _ilkTarlaAktif;
+    public int _cantadakiIceCreamSayisi;
+
+    public int _cantadakiDrinkSayisi;
+
+    public int _stuffStackSiniri;
+
+    public int _iceCreamStackSiniri;
+
+    public int _drinkStackSiniri;
 
     void Start()
     {
         _cantadakiObjeSayisi = 0;
-        _samanSayisiText.text = _cantadakiSamanObjeleri.Count.ToString();
-        _altinSayisiText.text = _cantadakiAltinObjeleri.Count.ToString();
-        _etSayisiText.text = _cantadakiEtObjeleri.Count.ToString();
-        _demirSayisiText.text = _cantadakiDemirObjeleri.Count.ToString();
-        _kilicVar = false;
-        _ilkTarlaAktif = false;
+        _cantadakiStuffSayisi = 0;
+        _cantadakiIceCreamSayisi = 0;
+        _cantadakiDrinkSayisi = 0;
+        _stuffStackSiniri = 4;
+        _iceCreamStackSiniri = 1;
+        _drinkStackSiniri = 1;
 
+        _canSimidi.SetActive(false);
+
+        _iceCreamTepsi.SetActive(false);
+        _drinkTepsi.SetActive(false);
+
+        PlayerCapacityGuncelle();
     }
 
     private void FixedUpdate()
     {
+        if (_cantadakiObjeler.Count > 0)
+        {
+            _playerController._elindeStaffVarMi = true;
+        }
+        else
+        {
+            _playerController._elindeStaffVarMi = false;
+        }
+
         CantayiDüzenle();
         CantayiHizala();
+
+        /*
+        if (_cantadakiIceCreamSayisi > 0)
+        {
+            _iceCreamTepsi.SetActive(true);
+        }
+        else
+        {
+            _iceCreamTepsi.SetActive(false);
+        }
+        */
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void PlayerCapacityGuncelle()
     {
-        if (other.gameObject.tag == "SamanBalyasi")
+        if (PlayerPrefs.GetInt("PlayerCapacityLevel") == 0)
         {
-            if (_cantadakiObjeler.Count < _yerlesmeNoktalari.Count)
-            {
-                other.gameObject.transform.parent = _sirtCantasiObject.transform;
-                _cantadakiObjeler.Add(other.gameObject);
-                _cantadakiSamanObjeleri.Add(other.gameObject);
-                other.gameObject.tag = "ToplanmisSamanBalyasi";
-
-                _samanSayisiText.text = _cantadakiSamanObjeleri.Count.ToString();
-
-                int sira = _cantadakiObjeSayisi;
-                other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.5f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.5f));
-                other.gameObject.transform.DOLocalRotate(Vector3.zero, 1);
-                _cantadakiObjeSayisi++;
-
-                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-
-                if (GameObject.FindGameObjectWithTag("Ambar") != null)
-                {
-                    AmbarSpawnScript _ambarSpawnScript = GameObject.FindGameObjectWithTag("Ambar").GetComponent<AmbarSpawnScript>();
-
-                    if (_ambarSpawnScript._ambarUrunSayisi > 0)
-                    {
-                        _ambarSpawnScript._ambarUrunSayisi--;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else
-                {
-
-                }
-
-
-
-            }
-            else
-            {
-
-            }
-
-
-            //Debug.Log("Saman Balyasi Alindi");
+            _stuffStackSiniri = 4;
+            _iceCreamStackSiniri = 1;
+            _drinkStackSiniri = 1;
         }
-        else if (other.gameObject.tag == "Altin")
+        else if (PlayerPrefs.GetInt("PlayerCapacityLevel") == 1)
         {
-            if (_cantadakiObjeler.Count < _yerlesmeNoktalari.Count)
-            {
-                other.gameObject.transform.parent = _sirtCantasiObject.transform;
-                _cantadakiObjeler.Add(other.gameObject);
-                _cantadakiAltinObjeleri.Add(other.gameObject);
-                other.gameObject.tag = "ToplanmisAltin";
-
-                _altinSayisiText.text = _cantadakiAltinObjeleri.Count.ToString();
-
-                int sira = _cantadakiObjeSayisi;
-                other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.5f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.5f));
-                other.gameObject.transform.DOLocalRotate(Vector3.zero, 1);
-                _cantadakiObjeSayisi++;
-
-                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-
-                if (GameObject.FindGameObjectWithTag("AltinMadeni") != null)
-                {
-                    AltinMadeniSpawnScript _altinMadeniSpawnScript = GameObject.FindGameObjectWithTag("AltinMadeni").GetComponent<AltinMadeniSpawnScript>();
-
-                    if (_altinMadeniSpawnScript._ambarUrunSayisi > 0)
-                    {
-                        _altinMadeniSpawnScript._ambarUrunSayisi--;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else
-                {
-
-                }
-
-
-
-            }
-            else
-            {
-
-            }
+            _stuffStackSiniri = 6;
+            _iceCreamStackSiniri = 2;
+            _drinkStackSiniri = 2;
         }
-        else if (other.gameObject.tag == "Et")
+        else if (PlayerPrefs.GetInt("PlayerCapacityLevel") == 2)
         {
-            if (_cantadakiObjeler.Count < _yerlesmeNoktalari.Count)
-            {
-                other.gameObject.transform.parent = _sirtCantasiObject.transform;
-                _cantadakiObjeler.Add(other.gameObject);
-                _cantadakiEtObjeleri.Add(other.gameObject);
-                other.gameObject.tag = "ToplanmisEt";
-
-                _etSayisiText.text = _cantadakiEtObjeleri.Count.ToString();
-
-                int sira = _cantadakiObjeSayisi;
-                other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.5f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.5f));
-                other.gameObject.transform.DOLocalRotate(Vector3.zero, 1);
-                _cantadakiObjeSayisi++;
-
-                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-
-                if (GameObject.FindGameObjectWithTag("Kasap") != null)
-                {
-                    KasapSpawnScript _kasapSpawnScript = GameObject.FindGameObjectWithTag("Kasap").GetComponent<KasapSpawnScript>();
-
-                    if (_kasapSpawnScript._ambarUrunSayisi > 0)
-                    {
-                        _kasapSpawnScript._ambarUrunSayisi--;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else
-                {
-
-                }
-
-
-
-            }
-            else
-            {
-
-            }
+            _stuffStackSiniri = 8;
+            _iceCreamStackSiniri = 3;
+            _drinkStackSiniri = 3;
         }
-        else if (other.gameObject.tag == "Demir")
+        else
         {
-            if (_cantadakiObjeler.Count < _yerlesmeNoktalari.Count)
-            {
-                other.gameObject.transform.parent = _sirtCantasiObject.transform;
-                _cantadakiObjeler.Add(other.gameObject);
-                _cantadakiDemirObjeleri.Add(other.gameObject);
-                other.gameObject.tag = "ToplanmisDemir";
 
-                _demirSayisiText.text = _cantadakiDemirObjeleri.Count.ToString();
-
-                int sira = _cantadakiObjeSayisi;
-                other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.5f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.5f));
-                other.gameObject.transform.DOLocalRotate(Vector3.zero, 1);
-                _cantadakiObjeSayisi++;
-
-                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-
-                if (GameObject.FindGameObjectWithTag("DemirMadeni") != null)
-                {
-                    DemirMadeniSpawnScript _demirMadeniSpawnScript = GameObject.FindGameObjectWithTag("DemirMadeni").GetComponent<DemirMadeniSpawnScript>();
-
-                    if (_demirMadeniSpawnScript._ambarUrunSayisi > 0)
-                    {
-                        _demirMadeniSpawnScript._ambarUrunSayisi--;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else
-                {
-
-                }
-
-
-
-            }
-            else
-            {
-
-            }
         }
     }
 
-    public void SamanCek(Transform malKabulNoktasi)
+    public void StuffTopla(GameObject other)
     {
-        if (_cantadakiSamanObjeleri.Count > 0)
+        if (_cantadakiIceCreamObjeleri.Count == 0 && _cantadakiDrinkObjeleri.Count == 0)
         {
-            int sira = _cantadakiSamanObjeleri.Count - 1;
-            _cantadakiSamanObjeleri[_cantadakiSamanObjeleri.Count - 1].gameObject.transform.parent = null;
-            _cantadakiSamanObjeleri[_cantadakiSamanObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
-            _cantadakiSamanObjeleri[_cantadakiSamanObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            _cantadakiSamanObjeleri.RemoveAt(_cantadakiSamanObjeleri.Count - 1);
+            if (_cantadakiStuffObjeleri.Count < _stuffStackSiniri)
+            {
+                other.gameObject.transform.parent = _sirtCantasiObject.transform;
+                _cantadakiObjeler.Add(other.gameObject);
+                _cantadakiStuffObjeleri.Add(other.gameObject);
+
+                int sira = _cantadakiObjeSayisi;
+                //other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.2f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.2f));
+                other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.5f);
+                //other.gameObject.transform.DOLocalJump(_yerlesmeNoktalari[sira].localPosition, 1, 1, 0.5f);
+                other.gameObject.transform.DOLocalRotate(new Vector3(90, 90, 0), 0.5f);
+                _cantadakiStuffSayisi++;
+                _cantadakiObjeSayisi++;
+
+                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+
+    }
+
+    public void IceCreamTopla()
+    {
+        if (_cantadakiStuffObjeleri.Count == 0 && _cantadakiDrinkObjeleri.Count == 0)
+        {
+            if (_cantadakiIceCreamObjeleri.Count < _iceCreamStackSiniri)
+            {
+                for (int i = 0; i < _tepsidekiIceCreams.Count; i++)
+                {
+                    if (_tepsidekiIceCreams[i].activeSelf == false)
+                    {
+                        _tepsidekiIceCreams[i].SetActive(true);
+                        //_cantadakiObjeler.Add(_tepsidekiIceCreams[i].gameObject);
+                        _cantadakiIceCreamObjeleri.Add(_tepsidekiIceCreams[i].gameObject);
+                        _cantadakiIceCreamSayisi++;
+                        _cantadakiObjeSayisi++;
+
+                        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+                        break;
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+
+    }
+
+    public void DrinkTopla()
+    {
+        if (_cantadakiStuffObjeleri.Count == 0 && _cantadakiIceCreamObjeleri.Count == 0)
+        {
+            if (_cantadakiDrinkObjeleri.Count < _drinkStackSiniri)
+            {
+                for (int i = 0; i < _tepsidekiDrinks.Count; i++)
+                {
+                    if (_tepsidekiDrinks[i].activeSelf == false)
+                    {
+                        _tepsidekiDrinks[i].SetActive(true);
+                        //_cantadakiObjeler.Add(_tepsidekiDrinks[i].gameObject);
+                        _cantadakiDrinkObjeleri.Add(_tepsidekiDrinks[i].gameObject);
+                        _cantadakiDrinkSayisi++;
+                        _cantadakiObjeSayisi++;
+
+                        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+                        break;
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+
+    }
+
+    public void CanSimidiTopla()
+    {
+
+        _canSimidi.SetActive(true);
+
+        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+
+    }
+
+
+
+    public void StuffCek(Transform malKabulNoktasi)
+    {
+        if (_cantadakiStuffObjeleri.Count > 0)
+        {
+            int sira = _cantadakiStuffObjeleri.Count - 1;
+            _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.parent = null;
+            //_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
+            _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOJump(malKabulNoktasi.position, 3, 1, 0.5f);
+            _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            //Destroy(_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject, 1f);
+            _cantadakiStuffObjeleri.RemoveAt(_cantadakiStuffObjeleri.Count - 1);
+            _cantadakiStuffSayisi--;
             _cantadakiObjeSayisi--;
-            _samanSayisiText.text = _cantadakiSamanObjeleri.Count.ToString();
 
             MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             //CantayiDüzenle();
@@ -253,17 +256,20 @@ public class SirtCantasiScript : MonoBehaviour
         }
     }
 
-    public void AltinCek(Transform malKabulNoktasi)
+    public void IceCreamCek()
     {
-        if (_cantadakiAltinObjeleri.Count > 0)
+        if (_cantadakiIceCreamObjeleri.Count > 0)
         {
-            int sira = _cantadakiAltinObjeleri.Count - 1;
-            _cantadakiAltinObjeleri[_cantadakiAltinObjeleri.Count - 1].gameObject.transform.parent = null;
-            _cantadakiAltinObjeleri[_cantadakiAltinObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
-            _cantadakiAltinObjeleri[_cantadakiAltinObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            _cantadakiAltinObjeleri.RemoveAt(_cantadakiAltinObjeleri.Count - 1);
+            int sira = _cantadakiIceCreamObjeleri.Count - 1;
+            // _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.parent = null;
+            //_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
+            // _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            //Destroy(_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject, 1f);
+            _cantadakiIceCreamObjeleri[_cantadakiIceCreamObjeleri.Count - 1].SetActive(false);
+            _cantadakiIceCreamObjeleri.RemoveAt(_cantadakiIceCreamObjeleri.Count - 1);
+            //_cantadakiObjeler.RemoveAt(_cantadakiDrinkObjeleri.Count - 1);
+            _cantadakiIceCreamSayisi--;
             _cantadakiObjeSayisi--;
-            _altinSayisiText.text = _cantadakiAltinObjeleri.Count.ToString();
 
             MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             //CantayiDüzenle();
@@ -275,17 +281,20 @@ public class SirtCantasiScript : MonoBehaviour
         }
     }
 
-    public void EtCek(Transform malKabulNoktasi)
+    public void DrinkCek()
     {
-        if (_cantadakiEtObjeleri.Count > 0)
+        if (_cantadakiDrinkObjeleri.Count > 0)
         {
-            int sira = _cantadakiEtObjeleri.Count - 1;
-            _cantadakiEtObjeleri[_cantadakiEtObjeleri.Count - 1].gameObject.transform.parent = null;
-            _cantadakiEtObjeleri[_cantadakiEtObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
-            _cantadakiEtObjeleri[_cantadakiEtObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            _cantadakiEtObjeleri.RemoveAt(_cantadakiEtObjeleri.Count - 1);
+            int sira = _cantadakiDrinkObjeleri.Count - 1;
+            // _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.parent = null;
+            //_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
+            // _cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            //Destroy(_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject, 1f);
+            _cantadakiDrinkObjeleri[_cantadakiDrinkObjeleri.Count - 1].SetActive(false);
+            _cantadakiDrinkObjeleri.RemoveAt(_cantadakiDrinkObjeleri.Count - 1);
+            //_cantadakiObjeler.RemoveAt(_cantadakiDrinkObjeleri.Count - 1);
+            _cantadakiDrinkSayisi--;
             _cantadakiObjeSayisi--;
-            _etSayisiText.text = _cantadakiEtObjeleri.Count.ToString();
 
             MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             //CantayiDüzenle();
@@ -297,26 +306,27 @@ public class SirtCantasiScript : MonoBehaviour
         }
     }
 
-    public void DemirCek(Transform malKabulNoktasi)
+    public void CanSimidiCek()
     {
-        if (_cantadakiDemirObjeleri.Count > 0)
-        {
-            int sira = _cantadakiDemirObjeleri.Count - 1;
-            _cantadakiDemirObjeleri[_cantadakiDemirObjeleri.Count - 1].gameObject.transform.parent = null;
-            _cantadakiDemirObjeleri[_cantadakiDemirObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
-            _cantadakiDemirObjeleri[_cantadakiDemirObjeleri.Count - 1].gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            _cantadakiDemirObjeleri.RemoveAt(_cantadakiDemirObjeleri.Count - 1);
-            _cantadakiObjeSayisi--;
-            _demirSayisiText.text = _cantadakiDemirObjeleri.Count.ToString();
+        _canSimidi.SetActive(false);
 
-            MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-            //CantayiDüzenle();
+        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+    }
 
-        }
-        else
-        {
 
-        }
+    public void CopKutusunaAt(Transform malKabulNoktasi)
+    {
+        StuffCek(malKabulNoktasi);
+
+        IceCreamCek();
+        DrinkCek();
+        CanSimidiCek();
+
+        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+    }
+
+    public void TepsiBosalt()
+    {
     }
 
     private void CantayiDüzenle()
@@ -333,7 +343,47 @@ public class SirtCantasiScript : MonoBehaviour
             }
         }
 
+        if (_cantadakiIceCreamObjeleri.Count > 0)
+        {
+            _iceCreamTepsi.SetActive(true);
 
+        }
+        else
+        {
+            _iceCreamTepsi.SetActive(false);
+
+        }
+
+        if (_cantadakiDrinkObjeleri.Count > 0)
+        {
+            _drinkTepsi.SetActive(true);
+
+        }
+        else
+        {
+            _drinkTepsi.SetActive(false);
+
+        }
+
+        if (_cantadakiObjeler.Count == 0)
+        {
+            if (_cantadakiIceCreamObjeleri.Count > 0 || _cantadakiDrinkObjeleri.Count > 0)
+            {
+
+                _playerController._elindeStaffVarMi = true;
+            }
+            else
+            {
+
+                _playerController._elindeStaffVarMi = false;
+            }
+
+
+        }
+        else
+        {
+
+        }
 
     }
 
@@ -358,45 +408,31 @@ public class SirtCantasiScript : MonoBehaviour
 
         }
 
-        int cantadakisamanobjesayi = _cantadakiSamanObjeleri.Count;
-        for (int i = 0; i < cantadakisamanobjesayi; i++)
+        int cantadakistuffobjesayi = _cantadakiStuffObjeleri.Count;
+        for (int i = 0; i < cantadakistuffobjesayi; i++)
         {
-            Destroy(_cantadakiSamanObjeleri[0].gameObject);
-            _cantadakiSamanObjeleri.RemoveAt(0);
+            Destroy(_cantadakiStuffObjeleri[0].gameObject);
+            _cantadakiStuffObjeleri.RemoveAt(0);
 
         }
 
-        int cantadakialtinobjesayi = _cantadakiAltinObjeleri.Count;
-        for (int i = 0; i < cantadakialtinobjesayi; i++)
+        int cantadakidrinkobjesayi = _cantadakiDrinkObjeleri.Count;
+        for (int i = 0; i < cantadakidrinkobjesayi; i++)
         {
-            Destroy(_cantadakiAltinObjeleri[0].gameObject);
-            _cantadakiAltinObjeleri.RemoveAt(0);
+            _cantadakiDrinkObjeleri[0].gameObject.SetActive(false);
+            _cantadakiDrinkObjeleri.RemoveAt(0);
 
         }
 
-        int cantadakietobjesayi = _cantadakiEtObjeleri.Count;
-        for (int i = 0; i < cantadakietobjesayi; i++)
+        int cantadakiicecreamobjesayi = _cantadakiIceCreamObjeleri.Count;
+        for (int i = 0; i < cantadakiicecreamobjesayi; i++)
         {
-            Destroy(_cantadakiEtObjeleri[0].gameObject);
-            _cantadakiEtObjeleri.RemoveAt(0);
+            _cantadakiIceCreamObjeleri[0].gameObject.SetActive(false);
+            _cantadakiIceCreamObjeleri.RemoveAt(0);
 
         }
 
-        int cantadakidemirobjesayi = _cantadakiDemirObjeleri.Count;
-        for (int i = 0; i < cantadakidemirobjesayi; i++)
-        {
-            Destroy(_cantadakiDemirObjeleri[0].gameObject);
-            _cantadakiDemirObjeleri.RemoveAt(0);
-
-        }
 
         _cantadakiObjeSayisi = 0;
-
-        _ilkTarlaAktif = false;
-
-        _samanSayisiText.text = _cantadakiSamanObjeleri.Count.ToString();
-        _altinSayisiText.text = _cantadakiAltinObjeleri.Count.ToString();
-        _etSayisiText.text = _cantadakiEtObjeleri.Count.ToString();
-        _demirSayisiText.text = _cantadakiDemirObjeleri.Count.ToString();
     }
 }
