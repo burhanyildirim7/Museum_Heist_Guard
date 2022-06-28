@@ -10,29 +10,11 @@ TagManager:
   - engel
   - finish
   - collectible
-  - elmas
-  - SamanBalyasi
-  - ToplanmisSamanBalyasi
-  - Ambar
   - SirtCantasi
-  - AltinMadeni
-  - Kasap
-  - Altin
-  - ToplanmisAltin
-  - Et
-  - ToplanmisEt
-  - Kisla
-  - Demir
-  - ToplanmisDemir
-  - DemirMadeni
-  - Demirci
-  - ArastirmaBinasi
-  - Gladyator
-  - GladyatorNokta1
-  - GladyatorNokta2
-  - GladyatorKontrol
-  - Kolezyum
-  - DemirciMerkez
+  - BedelOdemeCollider
+  - money
+  - client
+  - BedelOdemeMoney
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class JoystickController : MonoBehaviour
 
     private void Start()
     {
-        PlayerSpeedGuncelle();
+        //PlayerSpeedGuncelle();
     }
 
 

@@ -100,6 +100,8 @@ public class ClientAIScript : MonoBehaviour
     [SerializeField] private GameObject _yurumeEfekt;
 
     // Start is called before the first frame update
+
+
     private void Awake()
     {
 
@@ -742,10 +744,10 @@ public class ClientAIScript : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player")
         {
-            if (_boguluyor && other.gameObject.GetComponent<SirtCantasiScript>()._canSimidi.activeSelf)
+            if (_boguluyor)
             {
                 _canSimidi.SetActive(true);
-                other.gameObject.GetComponent<SirtCantasiScript>()._canSimidi.SetActive(false);
+                // other.gameObject.GetComponent<SirtCantasiScript>()._canSimidi.SetActive(false);
 
                 if (PlayerPrefs.GetInt("PlayerSpeedLevel") == 0)
                 {

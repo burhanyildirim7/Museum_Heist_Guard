@@ -70,7 +70,7 @@ public class UIController : MonoBehaviour
     {
         if (_upgradeScreenAcik)
         {
-            UpgradeScreenOpen();
+            // UpgradeScreenOpen();
         }
         else
         {
@@ -95,6 +95,7 @@ public class UIController : MonoBehaviour
         //SetLevelText(LevelController.instance.totalLevelNo);
         SetGamePlayScoreText();
 
+        /*
         if (PlayerPrefs.GetInt("AcilisSenaryosu") < 1)
         {
             StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().StartOnBoarding());
@@ -104,6 +105,7 @@ public class UIController : MonoBehaviour
         {
 
         }
+        */
 
     }
 
@@ -223,6 +225,8 @@ public class UIController : MonoBehaviour
 
     }
 
+
+    /*
 
     //------------------UPGRADE EKRANI----------------------------------------------------
 
@@ -589,7 +593,7 @@ public class UIController : MonoBehaviour
                 PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") - 500);
                 SetGamePlayScoreText();
                 PlayerPrefs.SetInt("PlayerCapacityLevel", 1);
-                GameObject.FindGameObjectWithTag("Player").GetComponent<SirtCantasiScript>().PlayerCapacityGuncelle();
+                //GameObject.FindGameObjectWithTag("Player").GetComponent<SirtCantasiScript>().PlayerCapacityGuncelle();
                 MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             }
         }
@@ -607,7 +611,7 @@ public class UIController : MonoBehaviour
                 PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") - 1000);
                 SetGamePlayScoreText();
                 PlayerPrefs.SetInt("PlayerCapacityLevel", 2);
-                GameObject.FindGameObjectWithTag("Player").GetComponent<SirtCantasiScript>().PlayerCapacityGuncelle();
+                //GameObject.FindGameObjectWithTag("Player").GetComponent<SirtCantasiScript>().PlayerCapacityGuncelle();
                 MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             }
         }
@@ -830,5 +834,5 @@ public class UIController : MonoBehaviour
 
         }
     }
-
+    */
 }

@@ -9,6 +9,8 @@ public class AIHareketKontrol : MonoBehaviour
 
     public List<GameObject> _cikisNoktalari = new List<GameObject>();
 
+    public List<GameObject> _geziNoktalari = new List<GameObject>();
+
     public List<GameObject> _sezlonglar = new List<GameObject>();
 
     public List<GameObject> _kabinler = new List<GameObject>();
@@ -28,14 +30,4 @@ public class AIHareketKontrol : MonoBehaviour
 
 
 
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
 }

@@ -11,7 +11,7 @@ public class AISpawnController : MonoBehaviour
 
     [SerializeField] private float _spawnHizi;
 
-    [SerializeField] private AIHareketKontrol _aiHareketKontrol;
+    [SerializeField] private TuristAIHareketKontrol _aiHareketKontrol;
 
     private float _timer;
 
@@ -53,13 +53,13 @@ public class AISpawnController : MonoBehaviour
     private void SezlongKontrolEt()
     {
 
-        for (int i = 1; i < _aiHareketKontrol._sezlonglar.Count; i++)
+        for (int i = 1; i < _aiHareketKontrol._geziNoktalari.Count; i++)
         {
-            if (_aiHareketKontrol._sezlonglar[i].gameObject.transform.parent.gameObject.activeSelf)
+            if (_aiHareketKontrol._geziNoktalari[i].gameObject.transform.parent.gameObject.activeSelf)
             {
-                if (_aiHareketKontrol._sezlonglar[i].GetComponent<YuzmeAlaniMi>()._yuzmeAlaniMi)
+                if (_aiHareketKontrol._geziNoktalari[i].GetComponent<YuzmeAlaniMi>()._yuzmeAlaniMi)
                 {
-                    if (_aiHareketKontrol._sezlonglar[i].GetComponent<YuzmeAlaniClientIstek>()._doluMu == false)
+                    if (_aiHareketKontrol._geziNoktalari[i].GetComponent<YuzmeAlaniClientIstek>()._doluMu == false)
                     {
                         _timer = 0;
                         // Debug.Log(_konumNumber);
@@ -76,7 +76,7 @@ public class AISpawnController : MonoBehaviour
                 }
                 else
                 {
-                    if (_aiHareketKontrol._sezlonglar[i].GetComponent<clientIstekleriniKarsilamakIcin>()._doluMu == false)
+                    if (_aiHareketKontrol._geziNoktalari[i].GetComponent<clientIstekleriniKarsilamakIcin>()._doluMu == false)
                     {
                         _timer = 0;
                         // Debug.Log(_konumNumber);
@@ -104,36 +104,5 @@ public class AISpawnController : MonoBehaviour
 
     }
 
-    private void YuzmeAlaniKontrolEt()
-    {
 
-        for (int i = 1; i < _aiHareketKontrol._yuzmeAlanlari.Count; i++)
-        {
-            if (_aiHareketKontrol._yuzmeAlanlari[i].gameObject.transform.parent.gameObject.activeSelf)
-            {
-                if (_aiHareketKontrol._yuzmeAlanlari[i].GetComponent<YuzmeAlaniClientIstek>()._doluMu == false)
-                {
-                    _timer = 0;
-                    // Debug.Log(_konumNumber);
-                    SpawnFunc();
-
-
-                    break;
-                }
-                else
-                {
-
-                }
-            }
-            else
-            {
-
-            }
-
-        }
-
-
-
-
-    }
 }

@@ -30,8 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _moneySpawnPoint;
 
 
-    [SerializeField] private GameObject _waterEfekt;
-    [SerializeField] private GameObject _yurumeEfekt;
+
 
     private float _efektTimer;
 
@@ -60,12 +59,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "YuzmeAlani")
-        {
-            _yuzuyorMu = true;
-
-        }
-        else if (other.gameObject.tag == "money")
+        if (other.gameObject.tag == "money")
         {
             other.gameObject.SetActive(false);
 
@@ -76,14 +70,6 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "BedelOdemeCollider")
         {
             _kalanBedel = other.GetComponent<BedelOdemeler>()._odenecekBedel;
-        }
-        else if (other.gameObject.tag == "DenizSiniri")
-        {
-            _denizeGirdi = true;
-            _waterEfekt.SetActive(true);
-            _yurumeEfekt.SetActive(false);
-            gameObject.GetComponent<SirtCantasiScript>().SirtCantasiLevelStart();
-
         }
         else
         {
@@ -111,7 +97,7 @@ public class PlayerController : MonoBehaviour
                         GameObject para = Instantiate(_bedelOdemePara, _moneySpawnPoint.transform.position, Quaternion.identity);
                         para.transform.rotation = Quaternion.Euler(90, 0, 0);
                         //para.transform.DOMove(other.gameObject.transform.position, 1f);
-                        para.transform.DOJump(other.gameObject.transform.position, 3, 1, 1f);
+                        para.transform.DOJump(other.gameObject.transform.position, 5, 1, 1f);
                         //other.GetComponent<BedelOdemeler>().BedelOdeUlen();
                         PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") - 10);
                         UIController.instance.SetGamePlayScoreText();
@@ -147,21 +133,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "YuzmeAlani")
-        {
-            _yuzuyorMu = false;
 
-        }
-        else if (other.gameObject.tag == "DenizSiniri")
-        {
-            _denizeGirdi = false;
-            _yurumeEfekt.SetActive(true);
-            _waterEfekt.SetActive(false);
-        }
-        else
-        {
-
-        }
     }
 
 
@@ -215,7 +187,7 @@ public class PlayerController : MonoBehaviour
         GameController.instance.score = 0;
         transform.position = new Vector3(0, transform.position.y, 0);
         GetComponent<Collider>().enabled = true;
-        GetComponent<SirtCantasiScript>().SirtCantasiLevelStart();
+        // GetComponent<SirtCantasiScript>().SirtCantasiLevelStart();
 
         _yuzuyorMu = false;
 

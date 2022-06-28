@@ -11,7 +11,7 @@ public class clientIstekleriniKarsilamakIcin : MonoBehaviour
 
     public GameObject _dolduranClient;
 
-
+    /*
     private void Start()
     {
         _doluMu = false;
@@ -131,7 +131,7 @@ public class clientIstekleriniKarsilamakIcin : MonoBehaviour
         {
 
         }
-        */
+        
     }
     private void OnTriggerExit(Collider other)
     {
@@ -146,5 +146,5 @@ public class clientIstekleriniKarsilamakIcin : MonoBehaviour
             dropParaObjesi.GetComponent<moneyGrubuKontrolu>().paraEklensinMi = true;
         }
     }
-
+*/
 }

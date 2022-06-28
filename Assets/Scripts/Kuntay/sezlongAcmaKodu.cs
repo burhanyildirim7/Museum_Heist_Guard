@@ -15,6 +15,7 @@ public class sezlongAcmaKodu : MonoBehaviour
 
     private AISpawnController _aiSpawnController;
 
+    /*
     private void Awake()
     {
 

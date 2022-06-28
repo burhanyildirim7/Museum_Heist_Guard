@@ -14,6 +14,7 @@ public class copKutusuKapakControl : MonoBehaviour
     private float _velocityX;
     private float _velocityZ;
 
+    /*
     private void Start()
     {
         _sirtCantasiScript = GameObject.FindGameObjectWithTag("Player").GetComponent<SirtCantasiScript>();
@@ -75,5 +76,6 @@ public class copKutusuKapakControl : MonoBehaviour
 
         }
     }
+    */
 
 }
