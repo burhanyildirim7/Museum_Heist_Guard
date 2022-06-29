@@ -50,75 +50,14 @@ public class JoystickController : MonoBehaviour
 
             if (_rigidbody.velocity.x != 0 || _rigidbody.velocity.z != 0)
             {
-                if (_playerController._yuzuyorMu == true)
-                {
-                    _animator.SetBool("walk", false);
-                    _animator.SetBool("swimidle", false);
-                    _animator.SetBool("swim", true);
 
-
-                }
-                else
-                {
-                    _animator.SetBool("swimidle", false);
-                    _animator.SetBool("swim", false);
-
-
-                    if (_playerController._elindeStaffVarMi == true)
-                    {
-                        _animator.SetBool("walk", false);
-                        _animator.SetBool("swim", false);
-                        _animator.SetBool("swimidle", false);
-                        _animator.SetBool("carryidle", false);
-                        _animator.SetBool("carry", true);
-                    }
-                    else
-                    {
-                        _animator.SetBool("swim", false);
-                        _animator.SetBool("swimidle", false);
-                        _animator.SetBool("carry", false);
-                        _animator.SetBool("carryidle", false);
-                        _animator.SetBool("walk", true);
-
-                    }
-
-                }
+                _animator.SetBool("Run", true);
 
             }
             else
             {
-                if (_playerController._yuzuyorMu == true)
-                {
-                    _animator.SetBool("walk", false);
-                    _animator.SetBool("swim", false);
-                    _animator.SetBool("swimidle", true);
 
-                }
-                else
-                {
-                    _animator.SetBool("swim", false);
-                    _animator.SetBool("swimidle", false);
-
-
-                    if (_playerController._elindeStaffVarMi == true)
-                    {
-                        _animator.SetBool("walk", false);
-                        _animator.SetBool("swim", false);
-                        _animator.SetBool("swimidle", false);
-                        _animator.SetBool("carry", false);
-                        _animator.SetBool("carryidle", true);
-                    }
-                    else
-                    {
-                        _animator.SetBool("swim", false);
-                        _animator.SetBool("swimidle", false);
-                        _animator.SetBool("carry", false);
-                        _animator.SetBool("carryidle", false);
-                        _animator.SetBool("walk", false);
-
-                    }
-
-                }
+                _animator.SetBool("Run", false);
 
             }
 

@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject _moneySpawnPoint;
 
+    [SerializeField] private GameObject _playerStackNoktasi;
+
 
 
 
@@ -70,6 +72,19 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "BedelOdemeCollider")
         {
             _kalanBedel = other.GetComponent<BedelOdemeler>()._odenecekBedel;
+        }
+        else if (other.gameObject.tag == "Eser")
+        {
+            if (_playerStackNoktasi.transform.childCount == 0 && other.gameObject.transform.parent == null)
+            {
+                other.gameObject.GetComponent<CalinacakObje>().KucagaAl(GameObject.FindGameObjectWithTag("PlayerStackNoktasi").gameObject);
+                Debug.Log("PLAYERDA GIRDI");
+            }
+            else
+            {
+
+            }
+
         }
         else
         {
@@ -155,7 +170,7 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + 10);
         UIController.instance.SetGamePlayScoreText();
 
-
+        /*
         if (PlayerPrefs.GetInt("UpgradeSenaryosu") < 1)
         {
             if (PlayerPrefs.GetInt("Money") > 500)
@@ -173,6 +188,7 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+        */
     }
 
 
@@ -197,8 +213,9 @@ public class PlayerController : MonoBehaviour
 
         Elephant.LevelStarted(1);
 
-        //PlayerPrefs.SetInt("Money", 99999);
+        PlayerPrefs.SetInt("Money", 99999);
         UIController.instance.SetGamePlayScoreText();
+        UIController.instance.SetTapToStartScoreText();
 
     }
 

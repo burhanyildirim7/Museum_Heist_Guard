@@ -53,43 +53,25 @@ public class AISpawnController : MonoBehaviour
     private void SezlongKontrolEt()
     {
 
-        for (int i = 1; i < _aiHareketKontrol._geziNoktalari.Count; i++)
+        for (int i = 0; i < _aiHareketKontrol._geziNoktalari.Count; i++)
         {
-            if (_aiHareketKontrol._geziNoktalari[i].gameObject.transform.parent.gameObject.activeSelf)
+            if (_aiHareketKontrol._geziNoktalari[i].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.gameObject.activeSelf)
             {
-                if (_aiHareketKontrol._geziNoktalari[i].GetComponent<YuzmeAlaniMi>()._yuzmeAlaniMi)
+
+                if (_aiHareketKontrol._geziNoktalari[i].GetComponent<HeykelMusaitlikSorgulama>()._doluMu == false)
                 {
-                    if (_aiHareketKontrol._geziNoktalari[i].GetComponent<YuzmeAlaniClientIstek>()._doluMu == false)
-                    {
-                        _timer = 0;
-                        // Debug.Log(_konumNumber);
-                        SpawnFunc();
+                    _timer = 0;
+                    // Debug.Log(_konumNumber);
+                    SpawnFunc();
 
 
-                        break;
-                    }
-                    else
-                    {
-
-                    }
-
+                    break;
                 }
                 else
                 {
-                    if (_aiHareketKontrol._geziNoktalari[i].GetComponent<clientIstekleriniKarsilamakIcin>()._doluMu == false)
-                    {
-                        _timer = 0;
-                        // Debug.Log(_konumNumber);
-                        SpawnFunc();
 
-
-                        break;
-                    }
-                    else
-                    {
-
-                    }
                 }
+
 
             }
             else
