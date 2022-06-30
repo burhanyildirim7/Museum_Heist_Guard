@@ -52,21 +52,29 @@ public class AISpawnController : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        if (_timer > _spawnHizi)
+        if (GameController.instance.isContinue == true)
         {
+            if (_timer > _spawnHizi)
+            {
 
-            SezlongKontrolEt();
-            HirsizKontrolEt();
-            //YuzmeAlaniKontrolEt();
+                SezlongKontrolEt();
+                HirsizKontrolEt();
+                //YuzmeAlaniKontrolEt();
 
-            _timer = 0;
+                _timer = 0;
 
 
+            }
+            else
+            {
+
+            }
         }
         else
         {
 
         }
+
     }
 
     public void SpawnHizGuncelle()
