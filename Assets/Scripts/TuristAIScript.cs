@@ -253,6 +253,7 @@ public class TuristAIScript : MonoBehaviour
                     {
                         other.gameObject.GetComponent<PlayerController>()._kelepceliyorMu = false;
                         StartCoroutine(Yakalandi());
+                        other.gameObject.GetComponent<SirtCantasiScript>().IceCreamCek();
                         _hirsizAnimator.SetBool("BustedIdle", false);
                         _hirsizAnimator.SetBool("PolisBekle", true);
                         other.gameObject.GetComponent<JoystickController>()._kelepceliyor = false;
@@ -304,7 +305,7 @@ public class TuristAIScript : MonoBehaviour
     {
         yield return new WaitForSeconds(15f);
 
-        int ihtimal = Random.Range(0, 5);
+        int ihtimal = Random.Range(0, 10);
 
         if (ihtimal == 0)
         {

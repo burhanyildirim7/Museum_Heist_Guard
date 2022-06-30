@@ -577,7 +577,7 @@ public class ObjeAcmaScript : MonoBehaviour
             PlayerPrefs.SetInt("Bolge1Bolum2AcikMi", 1);
             ObjeleriKapat();
             ObjeleriAc();
-            PlayerPrefs.SetInt("GiseSayisi", PlayerPrefs.GetInt("GiseSayisi") + 1);
+            PlayerPrefs.SetInt("GiseSayisi", 1);
             GameObject.FindGameObjectWithTag("AISpawnController").GetComponent<AISpawnController>().SpawnHizGuncelle();
 
 
@@ -587,7 +587,7 @@ public class ObjeAcmaScript : MonoBehaviour
             PlayerPrefs.SetInt("Bolge1Bolum3AcikMi", 1);
             ObjeleriKapat();
             ObjeleriAc();
-            PlayerPrefs.SetInt("GiseSayisi", PlayerPrefs.GetInt("GiseSayisi") + 1);
+            PlayerPrefs.SetInt("GiseSayisi", 2);
             GameObject.FindGameObjectWithTag("AISpawnController").GetComponent<AISpawnController>().SpawnHizGuncelle();
 
         }
@@ -596,7 +596,7 @@ public class ObjeAcmaScript : MonoBehaviour
             PlayerPrefs.SetInt("Bolge1Bolum4AcikMi", 1);
             ObjeleriKapat();
             ObjeleriAc();
-            PlayerPrefs.SetInt("GiseSayisi", PlayerPrefs.GetInt("GiseSayisi") + 1);
+            PlayerPrefs.SetInt("GiseSayisi", 3);
             GameObject.FindGameObjectWithTag("AISpawnController").GetComponent<AISpawnController>().SpawnHizGuncelle();
 
         }

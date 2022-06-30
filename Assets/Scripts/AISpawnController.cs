@@ -31,19 +31,19 @@ public class AISpawnController : MonoBehaviour
 
         if (PlayerPrefs.GetInt("GiseSayisi") == 1)
         {
-            _spawnHizi = 4;
+            _spawnHizi = 3;
         }
         else if (PlayerPrefs.GetInt("GiseSayisi") == 2)
         {
-            _spawnHizi = 3;
+            _spawnHizi = 2;
         }
         else if (PlayerPrefs.GetInt("GiseSayisi") == 3)
         {
-            _spawnHizi = 2;
+            _spawnHizi = 1;
         }
         else
         {
-            _spawnHizi = 5;
+            _spawnHizi = 4;
         }
     }
 

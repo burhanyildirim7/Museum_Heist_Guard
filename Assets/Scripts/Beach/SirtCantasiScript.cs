@@ -51,7 +51,7 @@ public class SirtCantasiScript : MonoBehaviour
         _cantadakiIceCreamSayisi = 0;
         // _cantadakiDrinkSayisi = 0;
         // _stuffStackSiniri = 4;
-        _iceCreamStackSiniri = 1;
+        //_iceCreamStackSiniri = 1;
         //_drinkStackSiniri = 1;
 
         //_canSimidi.SetActive(false);
