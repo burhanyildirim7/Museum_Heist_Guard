@@ -15,7 +15,7 @@ public class JoystickController : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
-
+    public bool _kelepceliyor;
 
     private void Start()
     {
@@ -27,14 +27,23 @@ public class JoystickController : MonoBehaviour
     {
         if (GameController.instance.isContinue == true && GameController.instance._kameraHareketli == false)
         {
-            Vector3 direction = Vector3.forward * _floatingJoystick.Vertical + Vector3.right * _floatingJoystick.Horizontal;
-            // transform.Translate(direction * Time.deltaTime * _speed);
-            _rigidbody.velocity = new Vector3(_floatingJoystick.Horizontal * _speed, _rigidbody.velocity.y, _floatingJoystick.Vertical * _speed);
 
-            if (_floatingJoystick.Horizontal != 0 || _floatingJoystick.Vertical != 0)
+            if (_kelepceliyor == false)
             {
-                transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+                Vector3 direction = Vector3.forward * _floatingJoystick.Vertical + Vector3.right * _floatingJoystick.Horizontal;
+                // transform.Translate(direction * Time.deltaTime * _speed);
+                _rigidbody.velocity = new Vector3(_floatingJoystick.Horizontal * _speed, _rigidbody.velocity.y, _floatingJoystick.Vertical * _speed);
+
+                if (_floatingJoystick.Horizontal != 0 || _floatingJoystick.Vertical != 0)
+                {
+                    transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+                }
             }
+            else
+            {
+                _rigidbody.velocity = Vector3.zero;
+            }
+
 
             /*
             if (_floatingJoystick.Horizontal == 0 && _floatingJoystick.Vertical == 0)
@@ -50,14 +59,63 @@ public class JoystickController : MonoBehaviour
 
             if (_rigidbody.velocity.x != 0 || _rigidbody.velocity.z != 0)
             {
+                if (_playerController._kelepceliyorMu)
+                {
+                    _animator.SetBool("CarryWalk", false);
+                    _animator.SetBool("CarryIdle", false);
+                    _animator.SetBool("Run", false);
+                    _animator.SetBool("Kelepcele", true);
+                }
+                else
+                {
+                    if (PlayerController._elindeEserVar == true)
+                    {
+                        _animator.SetBool("Kelepcele", false);
+                        _animator.SetBool("Run", false);
+                        _animator.SetBool("CarryIdle", false);
+                        _animator.SetBool("CarryWalk", true);
+                    }
+                    else
+                    {
+                        _animator.SetBool("Kelepcele", false);
+                        _animator.SetBool("CarryWalk", false);
+                        _animator.SetBool("CarryIdle", false);
+                        _animator.SetBool("Run", true);
 
-                _animator.SetBool("Run", true);
+                    }
+                }
+
+
 
             }
             else
             {
+                if (_playerController._kelepceliyorMu)
+                {
+                    _animator.SetBool("CarryWalk", false);
+                    _animator.SetBool("CarryIdle", false);
+                    _animator.SetBool("Run", false);
+                    _animator.SetBool("Kelepcele", true);
+                }
+                else
+                {
+                    if (PlayerController._elindeEserVar == true)
+                    {
+                        _animator.SetBool("Kelepcele", false);
+                        _animator.SetBool("Run", false);
+                        _animator.SetBool("CarryWalk", false);
+                        _animator.SetBool("CarryIdle", true);
+                    }
+                    else
+                    {
+                        _animator.SetBool("Kelepcele", false);
+                        _animator.SetBool("CarryWalk", false);
+                        _animator.SetBool("CarryIdle", false);
+                        _animator.SetBool("Run", false);
 
-                _animator.SetBool("Run", false);
+                    }
+                }
+
 
             }
 
@@ -66,7 +124,7 @@ public class JoystickController : MonoBehaviour
         }
         else
         {
-
+            _rigidbody.velocity = Vector3.zero;
         }
 
 

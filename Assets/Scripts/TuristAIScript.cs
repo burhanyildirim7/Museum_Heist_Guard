@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class TuristAIScript : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class TuristAIScript : MonoBehaviour
     [SerializeField] private Animator _hirsizAnimator;
 
     [SerializeField] private GameObject _elindeTutmaNoktasi;
+
+    [Header("Slider")]
+    [SerializeField] private Slider _slider;
+
+    public GameObject _alacakPolis;
 
     private TuristAIHareketKontrol _aiHareketKontrol;
     private AISpawnController _aiSpawnController;
@@ -37,7 +43,11 @@ public class TuristAIScript : MonoBehaviour
     private bool _heykeleBak;
 
     private bool _kaciriyor;
-    private bool _busted;
+    public bool _busted;
+
+    private bool _kelepceleniyor;
+
+    private bool _hirsizimBen;
 
     private void Awake()
     {
@@ -52,6 +62,7 @@ public class TuristAIScript : MonoBehaviour
         SezlongDoldur();
 
         _timer = 0;
+        _slider.value = 0;
 
         _point = _aiHareketKontrol._girisNoktalari[0].transform;
 
@@ -141,18 +152,125 @@ public class TuristAIScript : MonoBehaviour
         }
         else if (other.gameObject == _aiHareketKontrol._cikisNoktalari[2])
         {
-            Destroy(gameObject);
+            if (_hirsizimBen)
+            {
+                AIKapat();
+                Destroy(gameObject, 2f);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
         }
         else
         {
 
         }
 
+
+
         if (other.gameObject.tag == "Player")
         {
-            if (_kaciriyor)
+            if (PlayerController._elindeEserVar == false)
             {
-                StartCoroutine(Yakalandi());
+                if (_kaciriyor)
+                {
+                    if (other.gameObject.GetComponent<SirtCantasiScript>()._cantadakiIceCreamObjeleri.Count > 0)
+                    {
+                        _kaciriyor = false;
+                        _kelepceleniyor = true;
+                        other.gameObject.GetComponent<JoystickController>()._kelepceliyor = true;
+                        //_busted = true;
+                        _agent.enabled = false;
+
+                        _hirsizAnimator.SetBool("Walk", false);
+                        _hirsizAnimator.SetBool("BustedIdle", true);
+
+                        other.gameObject.GetComponent<PlayerController>()._kelepceliyorMu = true;
+
+                        _timer = 0;
+                        _slider.value = 0;
+                        // _image.SetActive(true);
+                    }
+                }
+            }
+            else
+            {
+
+            }
+
+        }
+        else
+        {
+
+        }
+
+        if (other.gameObject.tag == "Polis")
+        {
+            if (other.gameObject == _alacakPolis)
+            {
+                _hirsizAnimator.SetBool("PolisBekle", false);
+                _hirsizAnimator.SetBool("BustedWalk", true);
+                other.gameObject.GetComponent<PolisAIScript>()._point = _aiHareketKontrol._cikisNoktalari[0].transform;
+                _point = other.gameObject.transform;
+                _agent.enabled = true;
+                _agent.speed = 5;
+                _busted = false;
+                _hirsizimBen = false;
+            }
+            else
+            {
+
+            }
+
+        }
+        else
+        {
+
+        }
+
+
+    }
+
+    private void AIKapat()
+    {
+        _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>().Kacirildi();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (_kelepceleniyor)
+            {
+                if (other.gameObject.GetComponent<SirtCantasiScript>()._cantadakiIceCreamObjeleri.Count > 0)
+                {
+                    _timer += Time.deltaTime;
+                    _slider.value += Time.deltaTime;
+
+                    if (_timer > 2f)
+                    {
+                        other.gameObject.GetComponent<PlayerController>()._kelepceliyorMu = false;
+                        StartCoroutine(Yakalandi());
+                        _hirsizAnimator.SetBool("BustedIdle", false);
+                        _hirsizAnimator.SetBool("PolisBekle", true);
+                        other.gameObject.GetComponent<JoystickController>()._kelepceliyor = false;
+                        _kelepceleniyor = false;
+                        _timer = 0;
+                        _slider.value = 0;
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+                else
+                {
+
+                }
+
             }
             else
             {
@@ -168,6 +286,18 @@ public class TuristAIScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
+        if (other.gameObject.tag == "Player")
+        {
+
+            _timer = 0;
+            _slider.value = 0;
+
+        }
+        else
+        {
+
+        }
+
     }
 
     private IEnumerator HeykeliIzliyor()
@@ -178,7 +308,7 @@ public class TuristAIScript : MonoBehaviour
 
         if (ihtimal == 0)
         {
-            if (_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>()._calindi)
+            if (_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>()._tablo)
             {
                 _heykeleBak = false;
 
@@ -190,8 +320,23 @@ public class TuristAIScript : MonoBehaviour
             }
             else
             {
-                StartCoroutine(HirsizlikYap());
+                if (_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>()._calindi)
+                {
+                    _heykeleBak = false;
+
+                    _animator.SetBool("Run", true);
+
+                    _point = _aiHareketKontrol._cikisNoktalari[0].transform;
+
+                    _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._doluMu = false;
+                }
+                else
+                {
+                    _hirsizimBen = true;
+                    StartCoroutine(HirsizlikYap());
+                }
             }
+
 
         }
         else
@@ -222,9 +367,9 @@ public class TuristAIScript : MonoBehaviour
         _hirsizAnimator.SetBool("BustedIdle", true);
 
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
 
-        _agent.speed = 3;
+        _agent.speed = 2;
 
         _heykeleBak = false;
         _hirsizAnimator.SetBool("BustedIdle", false);
@@ -234,27 +379,29 @@ public class TuristAIScript : MonoBehaviour
 
         _kaciriyor = true;
 
+        _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._doluMu = false;
+
         //StartCoroutine(_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>().HirsizYakalandi());
 
     }
 
     private IEnumerator Yakalandi()
     {
-        _kaciriyor = false;
-        //_busted = true;
-        _agent.enabled = false;
         StartCoroutine(_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>().HirsizYakalandi());
-        _hirsizAnimator.SetBool("Walk", false);
-        _hirsizAnimator.SetBool("BustedIdle", true);
 
-        yield return new WaitForSeconds(6f);
+        _busted = true;
 
+
+
+        yield return new WaitForSeconds(1f);
+
+        /*
         _hirsizAnimator.SetBool("BustedIdle", false);
         _hirsizAnimator.SetBool("BustedWalk", true);
         //_busted = false;
         _agent.enabled = true;
         _agent.speed = 5;
-
+        */
 
 
         //StartCoroutine(_gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>().HirsizYakalandi());

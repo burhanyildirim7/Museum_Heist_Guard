@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _gidecegiKonum;
 
     [HideInInspector] public bool _yuzuyorMu;
-    [HideInInspector] public bool _elindeStaffVarMi;
+    //[HideInInspector] public bool _elindeStaffVarMi;
 
 
     [SerializeField] private GameObject _bedelOdemePara;
@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private float _velocityZ;
 
     private bool _denizeGirdi;
+
+    public static bool _elindeEserVar;
+    public bool _kelepceliyorMu;
 
     private void Awake()
     {

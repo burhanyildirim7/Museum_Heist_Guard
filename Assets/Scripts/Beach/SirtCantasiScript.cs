@@ -5,52 +5,53 @@ using DG.Tweening;
 
 public class SirtCantasiScript : MonoBehaviour
 {
+    [Header("PlayerController Scripti")]
+    [SerializeField] private PlayerController _playerController;
     [Header("Objeler Toplandiğinda Parent Atanacak Obje")]
     public GameObject _sirtCantasiObject;
     // [Header("Objelerin Yerlesecegi Transform Listesi")]
     //  public List<Transform> _yerlesmeNoktalari = new List<Transform>();
-    //[Header("Cantada Bulunan Objelerin Tamami")]
-    // public List<GameObject> _cantadakiObjeler = new List<GameObject>();
+    [Header("Cantada Bulunan Objelerin Tamami")]
+    public List<GameObject> _cantadakiObjeler = new List<GameObject>();
     //[Header("Cantada Bulunan Obje Cesitleri")]
     // public List<GameObject> _cantadakiStuffObjeleri = new List<GameObject>();
-    // public List<GameObject> _cantadakiIceCreamObjeleri = new List<GameObject>();
+    public List<GameObject> _cantadakiIceCreamObjeleri = new List<GameObject>();
     // public List<GameObject> _cantadakiDrinkObjeleri = new List<GameObject>();
-    [Header("PlayerController Scripti")]
-    [SerializeField] private PlayerController _playerController;
-    //[Header("Ice Cream Yonetme Objeler")]
+
+    [Header("Kelepce Yonetme Objeler")]
     //[SerializeField] private GameObject _iceCreamTepsi;
-    // public List<GameObject> _tepsidekiIceCreams = new List<GameObject>();
+    public List<GameObject> _tepsidekiIceCreams = new List<GameObject>();
     //[Header("Drink Yonetme Objeler")]
     //[SerializeField] private GameObject _drinkTepsi;
     // public List<GameObject> _tepsidekiDrinks = new List<GameObject>();
     //[Header("Can Simidi Yonetme Objeler")]
     //public GameObject _canSimidi;
 
-    /*
+
     [Header("Kontrol Amacli")]
     public int _cantadakiObjeSayisi;
 
-    public int _cantadakiStuffSayisi;
+    //public int _cantadakiStuffSayisi;
 
     public int _cantadakiIceCreamSayisi;
 
-    public int _cantadakiDrinkSayisi;
+    //public int _cantadakiDrinkSayisi;
 
-    public int _stuffStackSiniri;
+    //public int _stuffStackSiniri;
 
     public int _iceCreamStackSiniri;
 
-    public int _drinkStackSiniri;
-    */
+    //public int _drinkStackSiniri;
+
 
     void Start()
     {
-        // _cantadakiObjeSayisi = 0;
+        _cantadakiObjeSayisi = 0;
         //_cantadakiStuffSayisi = 0;
-        // _cantadakiIceCreamSayisi = 0;
+        _cantadakiIceCreamSayisi = 0;
         // _cantadakiDrinkSayisi = 0;
         // _stuffStackSiniri = 4;
-        // _iceCreamStackSiniri = 1;
+        _iceCreamStackSiniri = 1;
         //_drinkStackSiniri = 1;
 
         //_canSimidi.SetActive(false);
@@ -147,46 +148,42 @@ public class SirtCantasiScript : MonoBehaviour
         }
 
     }
+    */
 
     public void IceCreamTopla()
     {
-        if (_cantadakiStuffObjeleri.Count == 0 && _cantadakiDrinkObjeleri.Count == 0)
+
+        if (_cantadakiIceCreamObjeleri.Count < _iceCreamStackSiniri)
         {
-            if (_cantadakiIceCreamObjeleri.Count < _iceCreamStackSiniri)
+            for (int i = 0; i < _tepsidekiIceCreams.Count; i++)
             {
-                for (int i = 0; i < _tepsidekiIceCreams.Count; i++)
+                if (_tepsidekiIceCreams[i].activeSelf == false)
                 {
-                    if (_tepsidekiIceCreams[i].activeSelf == false)
-                    {
-                        _tepsidekiIceCreams[i].SetActive(true);
-                        //_cantadakiObjeler.Add(_tepsidekiIceCreams[i].gameObject);
-                        _cantadakiIceCreamObjeleri.Add(_tepsidekiIceCreams[i].gameObject);
-                        _cantadakiIceCreamSayisi++;
-                        _cantadakiObjeSayisi++;
+                    _tepsidekiIceCreams[i].SetActive(true);
+                    //_cantadakiObjeler.Add(_tepsidekiIceCreams[i].gameObject);
+                    _cantadakiIceCreamObjeleri.Add(_tepsidekiIceCreams[i].gameObject);
+                    _cantadakiIceCreamSayisi++;
+                    _cantadakiObjeSayisi++;
 
-                        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-                        break;
-                    }
-                    else
-                    {
-
-                    }
+                    MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+                    break;
                 }
+                else
+                {
 
-
+                }
             }
-            else
-            {
 
-            }
+
         }
         else
         {
 
         }
 
-    }
 
+    }
+    /*
     public void DrinkTopla()
     {
         if (_cantadakiStuffObjeleri.Count == 0 && _cantadakiIceCreamObjeleri.Count == 0)
@@ -260,7 +257,7 @@ public class SirtCantasiScript : MonoBehaviour
 
         }
     }
-
+    */
     public void IceCreamCek()
     {
         if (_cantadakiIceCreamObjeleri.Count > 0)
@@ -285,7 +282,7 @@ public class SirtCantasiScript : MonoBehaviour
 
         }
     }
-
+    /*
     public void DrinkCek()
     {
         if (_cantadakiDrinkObjeleri.Count > 0)

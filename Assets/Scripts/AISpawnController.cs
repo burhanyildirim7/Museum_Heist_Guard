@@ -6,6 +6,7 @@ public class AISpawnController : MonoBehaviour
 {
 
     [SerializeField] private List<GameObject> _spawnClientList = new List<GameObject>();
+    [SerializeField] private List<GameObject> _spawnPolisList = new List<GameObject>();
 
     [SerializeField] private Transform _spawnNoktasi;
 
@@ -13,13 +14,37 @@ public class AISpawnController : MonoBehaviour
 
     [SerializeField] private TuristAIHareketKontrol _aiHareketKontrol;
 
+    [SerializeField] private GameObject _clientParent;
+
     private float _timer;
+    //private float _polisTimer;
 
     public bool _uret;
+
+    private GameObject _hirsizObject;
+
+    // public static int _giseSayisi;
 
     void Start()
     {
         _timer = 0;
+
+        if (PlayerPrefs.GetInt("GiseSayisi") == 1)
+        {
+            _spawnHizi = 4;
+        }
+        else if (PlayerPrefs.GetInt("GiseSayisi") == 2)
+        {
+            _spawnHizi = 3;
+        }
+        else if (PlayerPrefs.GetInt("GiseSayisi") == 3)
+        {
+            _spawnHizi = 2;
+        }
+        else
+        {
+            _spawnHizi = 5;
+        }
     }
 
 
@@ -31,6 +56,7 @@ public class AISpawnController : MonoBehaviour
         {
 
             SezlongKontrolEt();
+            HirsizKontrolEt();
             //YuzmeAlaniKontrolEt();
 
             _timer = 0;
@@ -43,10 +69,41 @@ public class AISpawnController : MonoBehaviour
         }
     }
 
+    public void SpawnHizGuncelle()
+    {
+        if (PlayerPrefs.GetInt("GiseSayisi") == 1)
+        {
+            _spawnHizi = 4;
+        }
+        else if (PlayerPrefs.GetInt("GiseSayisi") == 2)
+        {
+            _spawnHizi = 3;
+        }
+        else if (PlayerPrefs.GetInt("GiseSayisi") == 3)
+        {
+            _spawnHizi = 2;
+        }
+        else
+        {
+            _spawnHizi = 5;
+        }
+    }
+
     private void SpawnFunc()
     {
         int deger = Random.Range(0, _spawnClientList.Count);
-        Instantiate(_spawnClientList[deger], _spawnNoktasi.position, Quaternion.identity);
+        GameObject client = Instantiate(_spawnClientList[deger], _spawnNoktasi.position, Quaternion.identity);
+        client.transform.parent = _clientParent.transform;
+
+    }
+
+    private void PolisSpawnFunc()
+    {
+        int deger = Random.Range(0, _spawnPolisList.Count);
+        GameObject client = Instantiate(_spawnPolisList[deger], _spawnNoktasi.position, Quaternion.identity);
+        client.GetComponent<PolisAIScript>().HirsizAyarla(_hirsizObject.transform);
+        _hirsizObject.GetComponent<TuristAIScript>()._alacakPolis = client;
+        //client.transform.parent = _clientParent.transform;
 
     }
 
@@ -78,6 +135,42 @@ public class AISpawnController : MonoBehaviour
             {
 
             }
+
+        }
+
+
+
+
+    }
+
+
+    private void HirsizKontrolEt()
+    {
+
+        for (int i = 0; i < _clientParent.transform.childCount; i++)
+        {
+
+            if (_clientParent.transform.GetChild(i).gameObject.GetComponent<TuristAIScript>()._busted)
+            {
+                _timer = 0;
+                // Debug.Log(_konumNumber);
+                _clientParent.transform.GetChild(i).gameObject.GetComponent<TuristAIScript>()._busted = false;
+                _hirsizObject = _clientParent.transform.GetChild(i).gameObject;
+                PolisSpawnFunc();
+
+
+
+
+
+                break;
+            }
+            else
+            {
+
+            }
+
+
+
 
         }
 

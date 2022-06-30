@@ -254,10 +254,10 @@ GameObject:
   - component: {fileID: 612733764459217957}
   - component: {fileID: 514299663360608570}
   - component: {fileID: 2938620535472501022}
-  - component: {fileID: 7787969483168099201}
+  - component: {fileID: 4463002566918725122}
   m_Layer: 0
   m_Name: Polis2
-  m_TagString: client
+  m_TagString: Polis
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -330,7 +330,7 @@ NavMeshAgent:
   m_BaseOffset: 0.75
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7787969483168099201
+--- !u!114 &4463002566918725122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,11 +339,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 810913572893499780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e4ff8b71a82e4265ba07cc07fc23b42, type: 3}
+  m_Script: {fileID: 11500000, guid: 52fe046e37bd044cf9fd4ceac394a2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 2938620535472501022}
-  _gidilecekSezlonglar: []
   _animator: {fileID: 5683895579703895036}
 --- !u!1 &1244090843663337052
 GameObject:

@@ -13,4 +13,6 @@ public class TuristAIHareketKontrol : MonoBehaviour
     public List<GameObject> _turnikeNoktalari = new List<GameObject>();
 
     public List<GameObject> _giseNoktalari = new List<GameObject>();
+
+    public List<GameObject> _polisGirisNoktalari = new List<GameObject>();
 }

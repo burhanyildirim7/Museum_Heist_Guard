@@ -15,6 +15,7 @@ public class MaviAlanScript : MonoBehaviour
                 if (GameObject.FindGameObjectWithTag("PlayerStackNoktasi").transform.GetChild(0).gameObject == _eser)
                 {
                     GameObject.FindGameObjectWithTag("PlayerStackNoktasi").transform.GetChild(0).gameObject.GetComponent<CalinacakObje>().YerineKoy();
+                    PlayerController._elindeEserVar = false;
                 }
                 else
                 {

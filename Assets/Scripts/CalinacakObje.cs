@@ -10,8 +10,13 @@ public class CalinacakObje : MonoBehaviour
     [SerializeField] private GameObject _parentObjesi;
     [SerializeField] private GameObject _engellemeCollider;
     [SerializeField] private GameObject _toplamaCollider;
+    [SerializeField] private GameObject _bedelOdemeCollider;
+    [SerializeField] private GameObject _canvas;
+    [SerializeField] private GameObject _bariyer;
 
     public bool _tablo;
+
+    public bool _donecekHeykelMi;
 
 
     public Vector3 _ilkLokalPosition;
@@ -62,19 +67,27 @@ public class CalinacakObje : MonoBehaviour
         }
 
         gameObject.transform.parent = _gameObject.transform;
-        gameObject.transform.DOLocalJump(Vector3.zero, 5, 1, 1f);
+        gameObject.transform.DOLocalJump(Vector3.zero, 5, 1, 0.5f);
 
-        if (_tablo)
+        if (_donecekHeykelMi)
         {
-            gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 1f);
+            gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.5f);
         }
         else
         {
-            gameObject.transform.DOLocalRotate(new Vector3(0, 90, 0), 1f);
+            gameObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         }
 
+        if (_gameObject == GameObject.FindGameObjectWithTag("PlayerStackNoktasi").gameObject)
+        {
+            _maviCerceve.SetActive(true);
+            PlayerController._elindeEserVar = true;
+        }
+        else
+        {
 
-        _maviCerceve.SetActive(true);
+        }
+
         //_toplamaCollider.SetActive(true);
     }
 
@@ -82,8 +95,8 @@ public class CalinacakObje : MonoBehaviour
     {
         _calindi = false;
         gameObject.transform.parent = _parentObjesi.transform;
-        gameObject.transform.DOLocalJump(_ilkLokalPosition, 5, 1, 1f);
-        gameObject.transform.DOLocalRotate(_ilkLokalRotation, 1f);
+        gameObject.transform.DOLocalJump(_ilkLokalPosition, 5, 1, 0.5f);
+        gameObject.transform.DOLocalRotate(_ilkLokalRotation, 0.5f);
 
         if (!_tablo)
         {
@@ -95,6 +108,7 @@ public class CalinacakObje : MonoBehaviour
         }
 
         _maviCerceve.SetActive(false);
+        PlayerController._elindeEserVar = false;
         //_toplamaCollider.SetActive(false);
     }
 
@@ -103,8 +117,8 @@ public class CalinacakObje : MonoBehaviour
         _calindi = false;
         gameObject.SetActive(false);
         gameObject.transform.parent = _parentObjesi.transform;
-        gameObject.transform.DOLocalJump(_ilkLokalPosition, 5, 1, 1f);
-        gameObject.transform.DOLocalRotate(_ilkLokalRotation, 1f);
+        gameObject.transform.DOLocalJump(_ilkLokalPosition, 5, 1, 0.5f);
+        gameObject.transform.DOLocalRotate(_ilkLokalRotation, 0.5f);
 
         if (!_tablo)
         {
@@ -115,16 +129,23 @@ public class CalinacakObje : MonoBehaviour
 
         }
 
+        _objeAcmaAlani.GetComponent<ObjeAcmaScript>().KacirilanObjeYerlestir();
+        _objeAcmaAlani.SetActive(true);
+        _bedelOdemeCollider.SetActive(true);
+        _canvas.SetActive(true);
+        _bariyer.SetActive(false);
+        _objeAcmaAlani.GetComponent<MeshRenderer>().enabled = true;
+
+        _bedelOdemeCollider.GetComponent<BedelOdemeler>().FiyatGuncelle();
+
         _maviCerceve.SetActive(false);
         //_toplamaCollider.SetActive(false);
     }
 
     public IEnumerator HirsizYakalandi()
     {
-        yield return new WaitForSeconds(5f);
 
-
-        gameObject.transform.DOLocalJump(new Vector3(0, -2, 3), 5, 1, 1f);
+        gameObject.transform.DOLocalJump(new Vector3(0, -2f, 3), 5, 1, 0.5f);
 
         yield return new WaitForSeconds(1f);
         gameObject.transform.parent = null;
