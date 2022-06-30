@@ -20,6 +20,8 @@ public class PolisAIScript : MonoBehaviour
 
     private Transform _gidilecekHirsiz;
 
+    public GameObject _coolEfekt;
+
     private void Awake()
     {
         _aiHareketKontrol = GameObject.FindGameObjectWithTag("TuristAIHareketKontrol").GetComponent<TuristAIHareketKontrol>();

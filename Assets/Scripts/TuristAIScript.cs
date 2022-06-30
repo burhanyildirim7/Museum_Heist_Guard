@@ -25,6 +25,8 @@ public class TuristAIScript : MonoBehaviour
 
     public GameObject _alacakPolis;
 
+    [SerializeField] private List<GameObject> _efektler = new List<GameObject>();
+
     private TuristAIHareketKontrol _aiHareketKontrol;
     private AISpawnController _aiSpawnController;
 
@@ -70,6 +72,10 @@ public class TuristAIScript : MonoBehaviour
         _hirsizKarakter.SetActive(false);
 
         _animator.SetBool("Run", true);
+
+        _efektler[0].SetActive(false);
+        _efektler[1].SetActive(false);
+        _efektler[2].SetActive(false);
     }
 
 
@@ -189,6 +195,10 @@ public class TuristAIScript : MonoBehaviour
 
                         other.gameObject.GetComponent<PlayerController>()._kelepceliyorMu = true;
 
+                        other.gameObject.GetComponent<PlayerController>()._efektler[1].SetActive(false);
+                        other.gameObject.GetComponent<PlayerController>()._efektler[0].SetActive(true);
+
+
                         _timer = 0;
                         _slider.value = 0;
                         // _image.SetActive(true);
@@ -210,6 +220,7 @@ public class TuristAIScript : MonoBehaviour
         {
             if (other.gameObject == _alacakPolis)
             {
+                other.gameObject.GetComponent<PolisAIScript>()._coolEfekt.SetActive(true);
                 _hirsizAnimator.SetBool("PolisBekle", false);
                 _hirsizAnimator.SetBool("BustedWalk", true);
                 other.gameObject.GetComponent<PolisAIScript>()._point = _aiHareketKontrol._cikisNoktalari[0].transform;
@@ -257,6 +268,8 @@ public class TuristAIScript : MonoBehaviour
                         _hirsizAnimator.SetBool("BustedIdle", false);
                         _hirsizAnimator.SetBool("PolisBekle", true);
                         other.gameObject.GetComponent<JoystickController>()._kelepceliyor = false;
+                        other.gameObject.GetComponent<PlayerController>()._efektler[0].SetActive(false);
+                        other.gameObject.GetComponent<PlayerController>()._efektler[1].SetActive(true);
                         _kelepceleniyor = false;
                         _timer = 0;
                         _slider.value = 0;
@@ -303,6 +316,11 @@ public class TuristAIScript : MonoBehaviour
 
     private IEnumerator HeykeliIzliyor()
     {
+
+        _efektler[1].SetActive(false);
+        _efektler[2].SetActive(false);
+        _efektler[0].SetActive(true);
+
         yield return new WaitForSeconds(15f);
 
         int ihtimal = Random.Range(0, 10);
@@ -318,6 +336,10 @@ public class TuristAIScript : MonoBehaviour
                 _point = _aiHareketKontrol._cikisNoktalari[0].transform;
 
                 _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._doluMu = false;
+
+                _efektler[0].SetActive(false);
+                _efektler[1].SetActive(false);
+                _efektler[2].SetActive(false);
             }
             else
             {
@@ -330,6 +352,10 @@ public class TuristAIScript : MonoBehaviour
                     _point = _aiHareketKontrol._cikisNoktalari[0].transform;
 
                     _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._doluMu = false;
+
+                    _efektler[0].SetActive(false);
+                    _efektler[1].SetActive(false);
+                    _efektler[2].SetActive(false);
                 }
                 else
                 {
@@ -349,12 +375,21 @@ public class TuristAIScript : MonoBehaviour
             _point = _aiHareketKontrol._cikisNoktalari[0].transform;
 
             _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._doluMu = false;
+
+            _efektler[0].SetActive(false);
+            _efektler[1].SetActive(false);
+            _efektler[2].SetActive(false);
         }
 
     }
 
     private IEnumerator HirsizlikYap()
     {
+
+        _efektler[0].SetActive(false);
+        _efektler[2].SetActive(false);
+        _efektler[1].SetActive(true);
+
         _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>()._calindi = true;
 
         yield return new WaitForSeconds(1f);
@@ -392,6 +427,9 @@ public class TuristAIScript : MonoBehaviour
 
         _busted = true;
 
+        _efektler[0].SetActive(false);
+        _efektler[1].SetActive(false);
+        _efektler[2].SetActive(true);
 
 
         yield return new WaitForSeconds(1f);

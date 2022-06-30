@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class SirtCantasiScript : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class SirtCantasiScript : MonoBehaviour
     // public List<GameObject> _tepsidekiDrinks = new List<GameObject>();
     //[Header("Can Simidi Yonetme Objeler")]
     //public GameObject _canSimidi;
+
+    [SerializeField] private Text _kelepceText;
+
+    [SerializeField] private GameObject _canvas;
+    [SerializeField] private GameObject _camera;
 
 
     [Header("Kontrol Amacli")]
@@ -60,10 +66,14 @@ public class SirtCantasiScript : MonoBehaviour
         //_drinkTepsi.SetActive(false);
         //
         //        PlayerCapacityGuncelle();
+
+        _kelepceText.text = "0";
     }
 
     private void FixedUpdate()
     {
+
+        _canvas.transform.LookAt(_camera.transform, Vector3.forward);
         /*
         if (_cantadakiObjeler.Count > 0)
         {
@@ -164,6 +174,8 @@ public class SirtCantasiScript : MonoBehaviour
                     _cantadakiIceCreamObjeleri.Add(_tepsidekiIceCreams[i].gameObject);
                     _cantadakiIceCreamSayisi++;
                     _cantadakiObjeSayisi++;
+
+                    _kelepceText.text = _cantadakiIceCreamObjeleri.Count.ToString();
 
                     MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
                     break;
@@ -272,6 +284,8 @@ public class SirtCantasiScript : MonoBehaviour
             //_cantadakiObjeler.RemoveAt(_cantadakiDrinkObjeleri.Count - 1);
             _cantadakiIceCreamSayisi--;
             _cantadakiObjeSayisi--;
+
+            _kelepceText.text = _cantadakiIceCreamObjeleri.Count.ToString();
 
             MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
             //CantayiDüzenle();
