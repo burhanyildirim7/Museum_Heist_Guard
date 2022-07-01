@@ -198,6 +198,7 @@ public class TuristAIScript : MonoBehaviour
                         other.gameObject.GetComponent<PlayerController>()._efektler[1].SetActive(false);
                         other.gameObject.GetComponent<PlayerController>()._efektler[0].SetActive(true);
 
+                        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
 
                         _timer = 0;
                         _slider.value = 0;
@@ -273,6 +274,8 @@ public class TuristAIScript : MonoBehaviour
                         _kelepceleniyor = false;
                         _timer = 0;
                         _slider.value = 0;
+
+                        //MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
                     }
                     else
                     {
@@ -402,6 +405,17 @@ public class TuristAIScript : MonoBehaviour
         _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<HeykelMusaitlikSorgulama>()._kontrolEdilecekHeykel.GetComponent<CalinacakObje>().KucagaAl(_elindeTutmaNoktasi);
         _hirsizAnimator.SetBool("BustedIdle", true);
 
+
+        if (PlayerPrefs.GetInt("HirsizSenaryosu") < 1)
+        {
+
+            StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().HirsizOnBoarding(gameObject));
+            PlayerPrefs.SetInt("HirsizSenaryosu", 1);
+        }
+        else
+        {
+
+        }
 
         yield return new WaitForSeconds(1f);
 

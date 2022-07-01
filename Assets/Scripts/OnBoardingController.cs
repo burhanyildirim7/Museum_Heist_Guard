@@ -6,7 +6,9 @@ public class OnBoardingController : MonoBehaviour
 {
 
     [SerializeField] private GameObject _onBoardingOku;
-    [SerializeField] private GameObject _stuffKonum;
+    [SerializeField] private GameObject _hediyeParaKonum;
+    [SerializeField] private GameObject _ilkHeykelKonum;
+    [SerializeField] private GameObject _kelepceDolabi;
     [SerializeField] private GameObject _drinkKonum;
     [SerializeField] private GameObject _iceCreamKonum;
     [SerializeField] private GameObject _trashKonum;
@@ -29,16 +31,16 @@ public class OnBoardingController : MonoBehaviour
     {
         GameController.instance._kameraHareketli = true;
 
-        _cameraMovement.KamerayiYonlendir(_stuffKonum);
+        _cameraMovement.KamerayiYonlendir(_hediyeParaKonum);
 
-        _onBoardingOku.transform.position = new Vector3(_stuffKonum.transform.position.x, 5, _stuffKonum.transform.position.z);
+        _onBoardingOku.transform.position = new Vector3(_hediyeParaKonum.transform.position.x, 3, _hediyeParaKonum.transform.position.z);
         _onBoardingOku.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 
-        _cameraMovement.KamerayiYonlendir(_sezlongKonum);
+        _cameraMovement.KamerayiYonlendir(_ilkHeykelKonum);
 
-        _onBoardingOku.transform.position = new Vector3(_sezlongKonum.transform.position.x, 3, _sezlongKonum.transform.position.z);
+        _onBoardingOku.transform.position = new Vector3(_ilkHeykelKonum.transform.position.x, 3, _ilkHeykelKonum.transform.position.z);
 
         yield return new WaitForSeconds(3f);
 
@@ -50,7 +52,7 @@ public class OnBoardingController : MonoBehaviour
 
     }
 
-    public IEnumerator SemsiyeOnBoarding(GameObject obje)
+    public IEnumerator HirsizOnBoarding(GameObject obje)
     {
         GameController.instance._kameraHareketli = true;
 
@@ -61,9 +63,28 @@ public class OnBoardingController : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        _cameraMovement.KamerayiYonlendir(_stuffKonum);
+        _cameraMovement.KamerayiYonlendir(_kelepceDolabi);
 
-        _onBoardingOku.transform.position = new Vector3(_stuffKonum.transform.position.x, 5, _stuffKonum.transform.position.z);
+        _onBoardingOku.transform.position = new Vector3(_kelepceDolabi.transform.position.x, 3, _kelepceDolabi.transform.position.z);
+
+        yield return new WaitForSeconds(3f);
+
+        _onBoardingOku.SetActive(false);
+
+        _cameraMovement.KamerayiResetle();
+
+        GameController.instance._kameraHareketli = false;
+
+    }
+
+    public IEnumerator KurtarmaOnBoarding(GameObject obje)
+    {
+        GameController.instance._kameraHareketli = true;
+
+        _cameraMovement.KamerayiYonlendir(obje);
+
+        _onBoardingOku.transform.position = new Vector3(obje.transform.position.x, 3, obje.transform.position.z);
+        _onBoardingOku.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 

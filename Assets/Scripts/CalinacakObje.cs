@@ -82,6 +82,17 @@ public class CalinacakObje : MonoBehaviour
         {
             _maviCerceve.SetActive(true);
             PlayerController._elindeEserVar = true;
+
+            if (PlayerPrefs.GetInt("KurtarmaSenaryosu") < 1)
+            {
+
+                StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().KurtarmaOnBoarding(_maviCerceve));
+                PlayerPrefs.SetInt("KurtarmaSenaryosu", 1);
+            }
+            else
+            {
+
+            }
         }
         else
         {
@@ -109,6 +120,8 @@ public class CalinacakObje : MonoBehaviour
 
         _maviCerceve.SetActive(false);
         PlayerController._elindeEserVar = false;
+
+        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
         //_toplamaCollider.SetActive(false);
     }
 

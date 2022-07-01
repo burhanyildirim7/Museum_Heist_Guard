@@ -76,7 +76,7 @@ public class UpgradeAlaniScript : MonoBehaviour
                     if (_timer > _spawnHizi)
                     {
                         _slider.value = 0;
-                        UIController.instance.UpgradeCanvasAc();
+                        //UIController.instance.UpgradeCanvasAc();
                         _panelAcildi = true;
 
                         //MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);

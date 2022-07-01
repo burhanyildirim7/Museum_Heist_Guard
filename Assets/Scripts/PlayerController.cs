@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
             if (_playerStackNoktasi.transform.childCount == 0 && other.gameObject.transform.parent == null)
             {
                 other.gameObject.GetComponent<CalinacakObje>().KucagaAl(GameObject.FindGameObjectWithTag("PlayerStackNoktasi").gameObject);
+                MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
                 Debug.Log("PLAYERDA GIRDI");
             }
             else

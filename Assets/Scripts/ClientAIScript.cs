@@ -1191,6 +1191,7 @@ public class ClientAIScript : MonoBehaviour
             _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<clientIstekleriniKarsilamakIcin>().semsiyeIstiyor = true;
             _semsiyeIstiyorEmoji.SetActive(true);
 
+            /*
             if (PlayerPrefs.GetInt("SemsiyeSenaryosu") < 1)
             {
                 StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().SemsiyeOnBoarding(_gidilecekSezlonglar[_dolanSezlongNumber]));
@@ -1200,6 +1201,7 @@ public class ClientAIScript : MonoBehaviour
             {
 
             }
+            */
 
         }
         else if (isteksayi == 1)
@@ -1208,7 +1210,7 @@ public class ClientAIScript : MonoBehaviour
             {
                 _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<clientIstekleriniKarsilamakIcin>().dondurmaIstiyor = true;
                 _dondurmaIstiyorEmoji.SetActive(true);
-
+                /*
                 if (PlayerPrefs.GetInt("DondurmaSenaryosu") < 1)
                 {
                     StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().DondurmaOnBoarding(_gidilecekSezlonglar[_dolanSezlongNumber]));
@@ -1218,6 +1220,7 @@ public class ClientAIScript : MonoBehaviour
                 {
 
                 }
+                */
             }
             else
             {
@@ -1225,6 +1228,7 @@ public class ClientAIScript : MonoBehaviour
                 _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<clientIstekleriniKarsilamakIcin>().semsiyeIstiyor = true;
                 _semsiyeIstiyorEmoji.SetActive(true);
 
+                /*
                 if (PlayerPrefs.GetInt("SemsiyeSenaryosu") < 1)
                 {
                     StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().SemsiyeOnBoarding(_gidilecekSezlonglar[_dolanSezlongNumber]));
@@ -1234,6 +1238,7 @@ public class ClientAIScript : MonoBehaviour
                 {
 
                 }
+                */
             }
 
 
@@ -1245,6 +1250,7 @@ public class ClientAIScript : MonoBehaviour
                 _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<clientIstekleriniKarsilamakIcin>().icecekIstiyor = true;
                 _icecekIstiyorEmoji.SetActive(true);
 
+                /*
                 if (PlayerPrefs.GetInt("IcecekSenaryosu") < 1)
                 {
                     StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().IcecekOnBoarding(_gidilecekSezlonglar[_dolanSezlongNumber]));
@@ -1254,6 +1260,7 @@ public class ClientAIScript : MonoBehaviour
                 {
 
                 }
+                */
             }
             else
             {
@@ -1261,6 +1268,7 @@ public class ClientAIScript : MonoBehaviour
                 _gidilecekSezlonglar[_dolanSezlongNumber].GetComponent<clientIstekleriniKarsilamakIcin>().semsiyeIstiyor = true;
                 _semsiyeIstiyorEmoji.SetActive(true);
 
+                /*
                 if (PlayerPrefs.GetInt("SemsiyeSenaryosu") < 1)
                 {
                     StartCoroutine(GameObject.FindGameObjectWithTag("OnBoardingController").GetComponent<OnBoardingController>().SemsiyeOnBoarding(_gidilecekSezlonglar[_dolanSezlongNumber]));
@@ -1270,6 +1278,7 @@ public class ClientAIScript : MonoBehaviour
                 {
 
                 }
+                */
             }
 
         }
