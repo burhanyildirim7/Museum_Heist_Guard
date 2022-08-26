@@ -34,6 +34,12 @@ public class SirtCantasiScript : MonoBehaviour
     [SerializeField] private GameObject _camera;
 
 
+    [Header("Videolar İcin Eklendi")]
+    public List<Transform> _moneyStackNoktalari = new List<Transform>();
+    public List<GameObject> _cantadakiMoneyObjeleri = new List<GameObject>();
+    public int _cantadakiMoneySayisi;
+
+
     [Header("Kontrol Amacli")]
     public int _cantadakiObjeSayisi;
 
@@ -296,6 +302,68 @@ public class SirtCantasiScript : MonoBehaviour
 
         }
     }
+
+    //------------------VIDEO ICIN-------------------------------------------------------------------
+
+    public void MoneyTopla(GameObject other)
+    {
+
+        if (_cantadakiMoneyObjeleri.Count < _moneyStackNoktalari.Count)
+        {
+            other.gameObject.transform.parent = _sirtCantasiObject.transform;
+            _cantadakiObjeler.Add(other.gameObject);
+            _cantadakiMoneyObjeleri.Add(other.gameObject);
+            other.gameObject.tag = "BedelOdemeMoney";
+
+            int sira = _cantadakiObjeSayisi;
+            //other.gameObject.transform.DOLocalMove(new Vector3(_yerlesmeNoktalari[sira].localPosition.x, _yerlesmeNoktalari[sira].localPosition.y + 0.5f, _yerlesmeNoktalari[sira].localPosition.z - 0.5f), 0.2f).OnComplete(() => other.gameObject.transform.DOLocalMove(_yerlesmeNoktalari[sira].localPosition, 0.2f));
+            other.gameObject.transform.DOLocalMove(_moneyStackNoktalari[sira].localPosition, 0.5f);
+            //other.gameObject.transform.DOLocalJump(_moneyStackNoktalari[sira].localPosition, 1, 1, 0.5f);
+            other.gameObject.transform.DOLocalRotate(new Vector3(90, 90, 0), 0.5f);
+            _cantadakiMoneySayisi++;
+            _cantadakiObjeSayisi++;
+
+            MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+        }
+        else
+        {
+
+        }
+
+
+    }
+
+
+    public void MoneyCek(Transform malKabulNoktasi)
+    {
+        if (_cantadakiMoneyObjeleri.Count > 0)
+        {
+            int sira = _cantadakiMoneyObjeleri.Count - 1;
+            _cantadakiMoneyObjeleri[_cantadakiMoneyObjeleri.Count - 1].gameObject.transform.parent = null;
+            //_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject.transform.DOMove(malKabulNoktasi.position, 0.5f);
+            _cantadakiMoneyObjeleri[_cantadakiMoneyObjeleri.Count - 1].gameObject.transform.DOJump(malKabulNoktasi.position, 3, 1, 0.5f);
+            _cantadakiMoneyObjeleri[_cantadakiMoneyObjeleri.Count - 1].gameObject.transform.DOLocalRotate(new Vector3(90, 90, 0), 0.5f);
+            //Destroy(_cantadakiStuffObjeleri[_cantadakiStuffObjeleri.Count - 1].gameObject, 1f);
+            _cantadakiMoneyObjeleri.RemoveAt(_cantadakiMoneyObjeleri.Count - 1);
+            _cantadakiMoneySayisi--;
+            _cantadakiObjeSayisi--;
+
+            MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+            //CantayiDüzenle();
+
+        }
+        else
+        {
+
+        }
+    }
+
+
+
+    //-------------------------------------------------------------------------------------------------------------------
+
+
+
     /*
     public void DrinkCek()
     {

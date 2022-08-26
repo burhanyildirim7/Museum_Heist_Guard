@@ -90,6 +90,12 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+        else if (other.gameObject.tag == "StackMoney")
+        {
+
+            gameObject.GetComponent<SirtCantasiScript>().MoneyTopla(other.gameObject);
+
+        }
         else
         {
 
@@ -106,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
             if (_velocityX == 0 || _velocityZ == 0)
             {
+                /*
                 if (PlayerPrefs.GetInt("Money") > 0 && _kalanBedel > 0)
                 {
                     _stayTimer += Time.deltaTime;
@@ -121,6 +128,31 @@ public class PlayerController : MonoBehaviour
                         PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") - 10);
                         UIController.instance.SetGamePlayScoreText();
                         _kalanBedel -= 10;
+
+                        MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
+
+                        _stayTimer = 0;
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+                */
+
+                if ((gameObject.GetComponent<SirtCantasiScript>()._cantadakiMoneyObjeleri.Count * 10) > 0 && _kalanBedel > 0)
+                {
+                    _stayTimer += Time.deltaTime;
+
+                    if (_stayTimer > 0.1f)
+                    {
+                        gameObject.GetComponent<SirtCantasiScript>().MoneyCek(other.gameObject.transform);
+                        _kalanBedel -= 10;
+
 
                         MoreMountains.NiceVibrations.MMVibrationManager.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
 
@@ -217,7 +249,7 @@ public class PlayerController : MonoBehaviour
 
         Elephant.LevelStarted(1);
 
-        //PlayerPrefs.SetInt("Money", 99999);
+        PlayerPrefs.SetInt("Money", 99999);
         UIController.instance.SetGamePlayScoreText();
         UIController.instance.SetTapToStartScoreText();
 
